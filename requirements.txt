@@ -1,0 +1,6 @@
+opencv-python
+opencv-contrib-python
+pylint
+pytest
+python-dotenv
+tensorflow>1.15
