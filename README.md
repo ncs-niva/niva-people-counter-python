@@ -13,7 +13,7 @@ using a Deep Neural Network as a detector (YOLOv4) and a tracking algorithm to t
 ## Dependencies & Requirements
 * Python 3
 * GPU with CUDA installed
-* The Python-based packages in [requirement.txt](./requirements.txt)
+* The Python-based packages in [requirements.txt](./requirements.txt)
 
 ## How to install
 TBC
