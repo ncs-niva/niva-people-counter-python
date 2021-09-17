@@ -39,12 +39,21 @@ Remember to install English language pack, as this is mandatory for `vcpkg`.
    ```
 
 The entire compilation process may take hours, so be prepared to set aside sufficient time to allow for monitoring its
-completion. Once finished, you should be able to find the executable `darknet.exe` in the "root" `darknet` directory.
+completion. Once finished, you should be able to find the executable "darknet.exe" in the "root" `darknet` directory.
+
+## Setup
+Remember to download the "yolov4.weights" as indicated in AlexeyAB's version of `darknet` and put it in the "yolov4/"
+directory, along with the necessary files in the "cfg" and "data" directories before running each detection.
+1. More specifically, please check if the "data\labels" copied directly from the "darknet" repository with all its
+contents are put in the new "data" directory under "yolov4". 
+2. Also, need to check are the "coco.data" file, together with the original "yolov4.cfg" files are in the "cfg" directory. 
+3. Please put the modified "coco.names" file along with any data file you would like to carry out the object detection 
+on in the "data" folder.
 
 ## Example Output
 The current setup is to use the weights from the MS COCO dataset, but showing only detection for the "person" class.
-Other objects are not shown in the output at all, unless the `dont_show` option is removed from the line for the
-particular objects concerned. 
+Other objects are not shown in the output at all, unless the `dont_show` option is removed from the front of each line
+for the particular objects concerned. 
 
 One image with detection results shown is as follows:
-![A soccer game](../predictions.jpg)
+![A soccer game](./predictions.jpg)
