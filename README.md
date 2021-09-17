@@ -9,7 +9,7 @@ Inspired by https://github.com/IdoGalil/People-counting-system.
 
 ## Overview
 The system counts the people entering and leaving an entrance as defined by some boundary, 
-using a Deep Neural Network as a detector (YOLOv4) and a tracking algorithm to track and count (DCF-CSR / CSRT). 
+using a Deep Neural Network as a detector (YOLOv4) and a tracking algorithm to track and count (DCF-CSR/CSRT). 
 
 ## Dependencies & Requirements
 * Python 3

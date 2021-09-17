@@ -39,4 +39,12 @@ Remember to install English language pack, as this is mandatory for `vcpkg`.
    ```
 
 The entire compilation process may take hours, so be prepared to set aside sufficient time to allow for monitoring its
-completion. Once finished, you should be able to find the executable `darknet.exe` in the "root" `darknet` directory. 
+completion. Once finished, you should be able to find the executable `darknet.exe` in the "root" `darknet` directory.
+
+## Example Output
+The current setup is to use the weights from the MS COCO dataset, but showing only detection for the "person" class.
+Other objects are not shown in the output at all, unless the `dont_show` option is removed from the line for the
+particular objects concerned. 
+
+One image with detection results shown is as follows:
+![A soccer game](../predictions.jpg)
