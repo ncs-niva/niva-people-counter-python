@@ -1,16 +1,20 @@
-# This is a sample Python script.
+# This script is for detecting people that either cross some predefined line or enter and exiting some ROI
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Built-in modules
+import argparse
+import datetime
+import os
+import time
+
+# External libraries
+import cv2
+import imutils
+import numpy as np
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def run():
+    pass
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == "__main__":
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    run()
