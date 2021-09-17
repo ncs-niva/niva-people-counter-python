@@ -17,4 +17,8 @@ using a Deep Neural Network as a detector (YOLOv4) and a tracking algorithm to t
 * The Python-based packages in [requirements.txt](./requirements.txt)
 
 ## How to install
-TBC
+For `yolov4` installation instructions, please see [yolov4 docs](./yolov4/README.md).
+Otherwise, for installation of all other Python-based dependencies, please run the following command:
+```bash
+pip install -r requirements.txt
+```
