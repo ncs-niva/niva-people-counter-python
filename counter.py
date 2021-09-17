@@ -1,3 +1,6 @@
+# The following functions are for defining the counting line or ROI, as well as to determined whether the line or ROI
+# has been passed.
+
 def get_counting_line(line_orientation, frame_width, frame_height, line_position):
     """
     To return the coords of the counting line by the line position and the frame width and height.
