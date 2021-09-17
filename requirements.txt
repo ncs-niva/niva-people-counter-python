@@ -1,6 +1,13 @@
+matplotlib
 opencv-python
 opencv-contrib-python
+pycocotools
 pylint
 pytest
 python-dotenv
 tensorflow>1.15
+torch==1.9.0+cu111
+torchvision==0.10.0+cu111
+torchaudio===0.9.0
+tensorboard>=2.6.0
+tqdm
