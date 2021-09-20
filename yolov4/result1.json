@@ -1,0 +1,15 @@
+[
+{
+ "frame_id":1, 
+ "filename":".\data\people1.jpg", 
+ "objects": [ 
+  {"class_id":0, "name":"person", "relative_coordinates":{"center_x":0.695423, "center_y":0.553874, "width":0.257870, "height":0.502622}, "confidence":0.815628}, 
+  {"class_id":0, "name":"person", "relative_coordinates":{"center_x":0.945580, "center_y":0.403081, "width":0.106825, "height":0.230312}, "confidence":0.903446}, 
+  {"class_id":0, "name":"person", "relative_coordinates":{"center_x":0.903130, "center_y":0.602290, "width":0.197193, "height":0.500601}, "confidence":0.819380}, 
+  {"class_id":0, "name":"person", "relative_coordinates":{"center_x":0.509503, "center_y":0.324083, "width":0.032556, "height":0.177748}, "confidence":0.796790}, 
+  {"class_id":0, "name":"person", "relative_coordinates":{"center_x":0.614711, "center_y":0.304982, "width":0.034509, "height":0.117148}, "confidence":0.272563}, 
+  {"class_id":0, "name":"person", "relative_coordinates":{"center_x":0.598955, "center_y":0.321548, "width":0.062122, "height":0.141117}, "confidence":0.269877}, 
+  {"class_id":0, "name":"person", "relative_coordinates":{"center_x":0.593223, "center_y":0.490479, "width":0.194428, "height":0.413878}, "confidence":0.987030}
+ ] 
+}
+]

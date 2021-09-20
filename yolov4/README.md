@@ -31,7 +31,7 @@ Windows Insider Program and upgrade to Windows 11 for a more seamless developer 
 Remember to install English language pack, as this is mandatory for `vcpkg`.
 2. Install CUDA enabling VS Integration during installation from the link above in the [Preliminaries](#preliminaries).
 3. Use Powershell to run the following commands one-by-one, at a directory such as `C:\Users\<username>`:
-   ```bash
+   ```commandline
    Set-ExecutionPolicy unrestricted -Scope CurrentUser -Force
    git clone https://github.com/AlexeyAB/darknet.git
    cd darknet
@@ -50,10 +50,18 @@ contents are put in the new "data" directory under "yolov4".
 3. Please put the modified "coco.names" file along with any data file you would like to carry out the object detection 
 on in the "data" folder.
 
+## Testing
+
+### For an image
+Do something similar to the following at the command prompt:
+```commandline
+darknet.exe detector test cfg\coco.data cfg\yolov4.cfg yolov4.weights -ext_output data\people1.jpg -out result.json
+```
+
 ## Example Output
 The current setup is to use the weights from the MS COCO dataset, but showing only detection for the "person" class.
 Other objects are not shown in the output at all, unless the `dont_show` option is removed from the front of each line
 for the particular objects concerned. 
 
 One image with detection results shown is as follows:
-![A soccer game](./predictions.jpg)
+![A soccer game](./predictions2.jpg)

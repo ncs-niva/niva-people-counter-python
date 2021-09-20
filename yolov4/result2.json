@@ -1,0 +1,13 @@
+[
+{
+ "frame_id":1, 
+ "filename":".\data\people2.jpg", 
+ "objects": [ 
+  {"class_id":0, "name":"person", "relative_coordinates":{"center_x":0.718777, "center_y":0.559912, "width":0.179056, "height":0.542408}, "confidence":0.987254}, 
+  {"class_id":0, "name":"person", "relative_coordinates":{"center_x":0.563441, "center_y":0.618047, "width":0.243252, "height":0.586617}, "confidence":0.982257}, 
+  {"class_id":0, "name":"person", "relative_coordinates":{"center_x":0.782564, "center_y":0.094123, "width":0.125953, "height":0.191950}, "confidence":0.946105}, 
+  {"class_id":0, "name":"person", "relative_coordinates":{"center_x":0.093385, "center_y":0.654673, "width":0.190671, "height":0.598647}, "confidence":0.993800}, 
+  {"class_id":0, "name":"person", "relative_coordinates":{"center_x":0.387294, "center_y":0.499304, "width":0.195030, "height":0.616445}, "confidence":0.995309}
+ ] 
+}
+]
