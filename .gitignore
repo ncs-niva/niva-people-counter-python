@@ -1,2 +1,3 @@
 .idea/
 yolov4/yolov4.weights
+yolov4/test_yolo_out_py.avi
