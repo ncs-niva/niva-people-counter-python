@@ -26,12 +26,13 @@ Windows Insider Program and upgrade to Windows 11 for a more seamless developer 
 * And for `vcpkg`, it is best to install it at a location called
 `C:\src` as suggested in their official docs on GitHub: https://github.com/microsoft/vcpkg. 
 
+
 ## Installation Instructions
 1. Install Visual Studio 2019. In case you need to download it, please download the Community Edition. 
 Remember to install English language pack, as this is mandatory for `vcpkg`.
 2. Install CUDA enabling VS Integration during installation from the link above in the [Preliminaries](#preliminaries).
 3. Use Powershell to run the following commands one-by-one, at a directory such as `C:\Users\<username>`:
-   ```commandline
+   ```shell
    Set-ExecutionPolicy unrestricted -Scope CurrentUser -Force
    git clone https://github.com/AlexeyAB/darknet.git
    cd darknet
@@ -40,6 +41,7 @@ Remember to install English language pack, as this is mandatory for `vcpkg`.
 
 The entire compilation process may take hours, so be prepared to set aside sufficient time to allow for monitoring its
 completion. Once finished, you should be able to find the executable "darknet.exe" in the "root" `darknet` directory.
+
 
 ## Setup
 Remember to download the "yolov4.weights" as indicated in AlexeyAB's version of `darknet` and put it in the "yolov4/"
@@ -50,11 +52,11 @@ contents are put in the new "data" directory under "yolov4".
 3. Please put the modified "coco.names" file along with any data file you would like to carry out the object detection 
 on in the "data" folder.
 
-## Testing
 
+## Testing
 ### For an image
 Do something similar to the following at the command prompt:
-```commandline
+```shell
 darknet.exe detector test cfg\coco.data cfg\yolov4.cfg yolov4.weights -ext_output data\people1.jpg -out result.json
 ```
 
@@ -65,3 +67,39 @@ for the particular objects concerned.
 
 One image with detection results shown is as follows:
 ![A soccer game](./predictions2.jpg)
+
+
+## Manually Build of `opencv-python` to Include `dnn` Module with NVIDIA GPU
+1. First, clone the `opencv-python` repository:
+```shell
+git clone https://github.com/opencv/opencv-python.git
+```
+
+2. Then, change the directory to `opencv-python` so it becomes the root directory:
+```shell
+cd opencv-python
+```
+
+3. Add custom cmake flags as follows:
+```shell
+set CMAKE_ARGS="-DWITH_CUDA=ON -DWITH_CUDNN=ON -DOPENCV_DNN_CUDA=ON -DWITH_CUBLAS=ON"
+```
+
+4. Next, select the package flavors which you wish to build with ENABLE_CONTRIB and ENABLE_HEADLESS:
+```shell
+set ENABLE_CONTRIB=1
+```
+This will enable building `opencv-contrib-python`. 
+
+5. To start the installation, run:
+```shell
+pip wheel . --verbose
+```
+Note: Make sure you have the latest `pip` version, 
+as the pip wheel command replaces the old `python setup.py bdist_wheel` command 
+which does not support "pyproject.toml". 
+
+6. Install the wheel
+```shell
+pip install C:/some-dir/some-file.whl
+```
