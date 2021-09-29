@@ -99,7 +99,16 @@ Note: Make sure you have the latest `pip` version,
 as the pip wheel command replaces the old `python setup.py bdist_wheel` command 
 which does not support "pyproject.toml". 
 
-6. Install the wheel
+If your build is successful, you should be able to see the line
 ```shell
-pip install C:/some-dir/some-file.whl
+Successfully built opencv-contrib-python
 ```
+towards the very end of the output generated for the build. 
+
+6. Install the wheel
+Once the wheel is built, you should be able to locate it in the root directory:
+```shell
+pip install some-file.whl
+```
+For an example, this file can have the name 
+"C:/Users/kriss/opencv-python/opencv_contrib_python-4.5.3+f07201c-cp39-cp39-win_amd64.whl". 
