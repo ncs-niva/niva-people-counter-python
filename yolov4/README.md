@@ -69,7 +69,7 @@ One image with detection results shown is as follows:
 ![A soccer game](./predictions2.jpg)
 
 
-## Manually Build of `opencv-python` to Include `dnn` Module with NVIDIA GPU
+## Manual Build of `opencv-python` to Include `dnn` Module with NVIDIA GPU
 1. First, clone the `opencv-python` repository:
 ```shell
 git clone https://github.com/opencv/opencv-python.git
