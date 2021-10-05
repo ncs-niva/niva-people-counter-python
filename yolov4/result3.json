@@ -1,0 +1,9 @@
+[
+{
+ "frame_id":1, 
+ "filename":".\sample_images\traffic_cone_1.jpg", 
+ "objects": [ 
+  {"class_id":0, "name":"trafficcone", "relative_coordinates":{"center_x":0.708749, "center_y":0.749672, "width":0.343339, "height":0.486233}, "confidence":0.998189}
+ ] 
+}
+]

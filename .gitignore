@@ -1,3 +1,15 @@
 .idea/
-yolov4/yolov4.weights
-yolov4/test_yolo_out_py.avi
+
+yolov4/weights/*
+yolov4/*.avi
+
+yolov5/weights/*
+yolov5/*.avi
+yolov5/runs/*
+yolov5/wandb/
+yolov5/__pycache__/
+yolov5/models/__pycache__/
+yolov5/utils/__pycache__/
+yolov5/utils/loggers/__pycache__/
+yolov5/utils/loggers/wandb/__pycache__/
+yolov5/.ipynb_checkpoints/

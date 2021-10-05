@@ -1,0 +1,17 @@
+[
+{
+ "frame_id":1, 
+ "filename":".\sample_images\traffic_cone_3.jpg", 
+ "objects": [ 
+  {"class_id":0, "name":"trafficcone", "relative_coordinates":{"center_x":0.946928, "center_y":0.702712, "width":0.100754, "height":0.131063}, "confidence":0.997483}, 
+  {"class_id":0, "name":"trafficcone", "relative_coordinates":{"center_x":0.274735, "center_y":0.585214, "width":0.099975, "height":0.075869}, "confidence":0.987371}, 
+  {"class_id":0, "name":"trafficcone", "relative_coordinates":{"center_x":0.033464, "center_y":0.694905, "width":0.066016, "height":0.129099}, "confidence":0.986829}, 
+  {"class_id":0, "name":"trafficcone", "relative_coordinates":{"center_x":0.699172, "center_y":0.599674, "width":0.042808, "height":0.054159}, "confidence":0.984414}, 
+  {"class_id":0, "name":"trafficcone", "relative_coordinates":{"center_x":0.333071, "center_y":0.571386, "width":0.032147, "height":0.046547}, "confidence":0.978135}, 
+  {"class_id":0, "name":"trafficcone", "relative_coordinates":{"center_x":0.539940, "center_y":0.543194, "width":0.017525, "height":0.027151}, "confidence":0.927203}, 
+  {"class_id":0, "name":"trafficcone", "relative_coordinates":{"center_x":0.398394, "center_y":0.546880, "width":0.025875, "height":0.040179}, "confidence":0.900441}, 
+  {"class_id":0, "name":"trafficcone", "relative_coordinates":{"center_x":0.415686, "center_y":0.536192, "width":0.025102, "height":0.036625}, "confidence":0.822625}, 
+  {"class_id":0, "name":"trafficcone", "relative_coordinates":{"center_x":0.506407, "center_y":0.532700, "width":0.014387, "height":0.017355}, "confidence":0.336336}
+ ] 
+}
+]
