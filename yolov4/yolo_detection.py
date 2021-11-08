@@ -30,8 +30,8 @@ with open(classes_file, 'rt') as f:
     classes = f.read().rstrip('\n').split('\n')
 
 # Giving the configuration and weight files for the model and load the network using them.
-modelConfiguration = "./cfg/yolov4.cfg";
-modelWeights = "./yolov4.weights";
+modelConfiguration = "./cfg/yolov4.cfg"
+modelWeights = "./yolov4.weights"
 
 net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeights)
 
