@@ -12,8 +12,8 @@ import numpy as np
 
 
 # Initializing the parameters
-conf_threshold = 0.5  # Confidence threshold
-nms_threshold = 0.4  # Non-maximum suppression threshold
+conf_threshold = 0.1  # Confidence or score threshold
+nms_threshold = 0.4  # Non-maximum suppression or IOU threshold
 inp_width = 416  # Width of network's input image
 inp_height = 416  # Height of network's input image
 
