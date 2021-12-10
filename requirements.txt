@@ -1,5 +1,5 @@
 dlib
-imutils
+imutils>=0.5.4
 matplotlib
 # opencv-python  # Need to be manually built from wheel
 # opencv-contrib-python  # Need to be manually built from wheel
