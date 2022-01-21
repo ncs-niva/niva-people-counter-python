@@ -13,7 +13,7 @@ using a Deep Neural Network as a detector (YOLOv4) and a tracking algorithm to t
 
 ## Dependencies & Requirements
 * Python 3
-* GPU with CUDA and cuDNN installed
+* GPU with CUDA and cuDNN installed and enabled
 * The Python-based packages in [requirements.txt](./requirements.txt)
 
 ## How to install
