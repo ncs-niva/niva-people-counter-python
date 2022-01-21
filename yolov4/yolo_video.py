@@ -1,39 +1,39 @@
-# Usage examples: python yolo_detection.py --video=data/test.mp4 --device 'cpu'
-#                 python yolo_detection.py --video=data/test.mp4 --device 'gpu'
-#                 python yolo_detection.py --image=data/people1.jpg --device 'cpu'
-#                 python yolo_detection.py --image=data/people1.jpg --device 'gpu'
-
-import argparse
-import os
-import sys
-import time
 import cv2
+import os
 import numpy as np
-import imutils
+from keras.models import Model
+from keras.models import load_model
+from keras.layers import Input
+from yolov4.decoder_layer import make_decoder_layer
+from yolov4.yolo_util import compose
+from utils.bounding_box import get_centroid
+from shapely.geometry import Point
+from utils.logger import get_logger
+logger = get_logger()
+logger = get_logger()
 
 
 class YoloDetector(object):
     """
-        This is the class of the detection by yolo model.
-        """
+    This is the class of the detection by yolo model.
+    """
     _defaults = {
-        'model_path': 'yolov4/data/yolov4.h5',
-        'anchors_path': 'yolov4/data/coco_anchors.txt',
-        'classes_path': 'yolov4/data/coco_classes.txt',
+        'model_path': 'model_data/yolov4.h5',
+        'anchors_path': 'model_data/coco_anchors.txt',
+        'classes_path': 'model_data/coco_classes.txt',
         'height': 416,  # height
         'width': 416,  # width
         'score_threshold': 0.1,  # a box is considered for class c iff confidence times class_prob for c is >= 0.5
         'iou_threshold': 0.4,  # boxes with iou 0.4 or greater are suppressed in nms
         'max_num_boxes': 10  # max number of boxes for a class
     }
-
     from dotenv import load_dotenv
-    load_dotenv(dotenv_path="./.env")
+    load_dotenv(dotenv_path="./env.env")
 
     def __init__(self, roi_polygon):
         """
-        Inits the detection model by user configuration.
-        :param roi_polygon: the ROI polygon for detection.
+        init the detection model by user configuration.
+        :param roi_polygon: the roi polygon for the detection.
         """
         # the path of the model location.
         self.model_path = os.getenv("YOLO_MODEL_PATH", default=self._defaults['model_path'])
@@ -49,7 +49,7 @@ class YoloDetector(object):
         # above which a detected box is removed.
         self.percentage_of_frame = float(os.getenv("PERCENTAGE_OF_FRAME_THRESHOLD"))
 
-        # The maximum ratio allowed between width and height of a box, ensuring only proportionate bounding boxes.
+        # The maximum ratio allowed between width and height of a box , ensuring only proportionate bounding boxes.
         self.width_to_height_ratio = float(os.getenv("MAXIMUM_WIDTH_TO_HEIGHT_RATIO_ALLOWED"))
 
         # The threshold above which two boxes detected will be considered as the same object,
@@ -74,7 +74,7 @@ class YoloDetector(object):
         self.offset_height = None
         self.offset_width = None
         self.input = None
-        # decoded YOLOv3 output
+        # decoded YOLOv4 output
         self.boxes = None
         self.confidence = None
         self.class_probs = None
@@ -85,8 +85,8 @@ class YoloDetector(object):
 
     def _get_class_names(self):
         """
-        Returns the class names from the classes file.
-        :return: list of the class names.
+        return the classes names from the classes file.
+        :return: list of the classes names.
         """
         classes_path = os.path.expanduser(self.classes_path)
         with open(classes_path) as f:
@@ -96,7 +96,7 @@ class YoloDetector(object):
 
     def _get_anchors(self):
         """
-        Returns the anchors from the anchors file.
+        return the anchors from the anchors file.
         :return: list of the anchors.
         """
         anchors_path = os.path.expanduser(self.anchors_path)
@@ -107,8 +107,8 @@ class YoloDetector(object):
 
     def _get_detection_model(self):
         """
-        Creates the detection model and return it.
-        :return: the detection model.
+        create the detection model and return it.
+        :return: the detection model
         """
 
         input = Input(shape=(self.height, self.width, 3))
@@ -119,7 +119,7 @@ class YoloDetector(object):
 
         for idx in np.arange(self.num_scales):
             assert yolo_model.output[idx].shape[-1] == self.num_anchors_per_scale * (5 + self.num_classes), \
-                'Mismatch between model output length and number of anchors and number of classes'
+                'Mismatch between model output length and number of anchors and and number of classes'
 
         decoder_layer = make_decoder_layer(self.anchors,
                                            self.num_classes,
@@ -128,9 +128,9 @@ class YoloDetector(object):
 
     def make_model_input(self, image):
         """
-        Scales the image to detect before detection.
-        :param image: the image to detect.
-        :return: the scale image.
+        scale the image to detect before detection.
+        :param image: the image to detect
+        :return: the scale image
         """
         self.image = image
         self.image_height = image.shape[0]
@@ -147,11 +147,11 @@ class YoloDetector(object):
 
         input = np.array(input, dtype='float32')
         input /= 255.
-        self.input = np.expand_dims(input, 0)  # to add batch dimension
+        self.input = np.expand_dims(input, 0)  # add batch dimension.
 
     def run_yolov4(self):
         """
-        Performs the detection on the image by the model.
+        perform the detection on the image by the model.
         """
         outputs = self.model.predict(self.input, batch_size=1)
         # the second value is 0 because batch size = 1 here for prediction
@@ -166,17 +166,17 @@ class YoloDetector(object):
 
     def translate_coord(self, box):
         """
-        The YOLOv4 model returns y and x coords in the range [0, 1] with respect to the model height and width.
-        Those coords need to be translated to the coords of the original image.
-        :param box: the detected box.
-        :return: the scaled box.
+        the YOLOv4 model returns y and x coords in the range [0, 1] with respect to the the model height and width
+        those corrds need to be translated to the coords of the original image
+        :param box: the detected box
+        :return: the scaled box
         """
 
         return \
-            int((box[0] * self.width - self.offset_width) / self.scale), \
-            int((box[1] * self.height - self.offset_height) / self.scale), \
-            int((box[2] * self.width - self.offset_width) / self.scale), \
-            int((box[3] * self.height - self.offset_height) / self.scale)
+            int((box[0] * self.width - self.offset_width) / self.scale),\
+            int((box[1] * self.height - self.offset_height) / self.scale),\
+            int((box[2] * self.width - self.offset_width) / self.scale),\
+            int((box[3] * self.height- self.offset_height) / self.scale)
 
     def get_detections(self, image):
         """
@@ -205,11 +205,11 @@ class YoloDetector(object):
 
     def handle_bounding_boxes(self):
         """
-        For each bounding boxes:
-        1. Removes bounding box with height / width that are 0.
-        2. Removes the boxes that are too large relatively to the frame size, or have disproportional width to height ratios
-        3. Removes the boxes that their centroids are out of the detection roi.
-        4. Removes the boxes that have iou greater than the provided overlap threshold.
+        for each bounding boxes :
+        1. remove bounding box with height / width that are 0.
+        2. Remove boxes that are too large relatively to the frame size, or have disproportional width to height ratios
+        3. Remove boxes that their centroids are out of the detection roi.
+        4. Remove boxes that have iou greater than the provided overlap threshold.
         :return: the picked bounding boxes
         """
 
@@ -246,8 +246,7 @@ class YoloDetector(object):
             height = y_top - y_bottom
             if height is 0 or width is 0:
                 idxs = np.delete(idxs, last)
-                logger.info('Deleted detection with 0 width \ height',
-                            extra={'meta': {'cat': 'DETECTION_PROCESS', 'height': height, 'width': width}})
+                logger.info('Deleted detection with 0 width \ height', extra={'meta': {'cat': 'DETECTION_PROCESS', 'height': height, 'width': width}})
                 continue
 
             box_area = width * height
@@ -256,15 +255,12 @@ class YoloDetector(object):
 
             if percentage_of_frame > self.percentage_of_frame:
                 idxs = np.delete(idxs, last)
-                logger.info('Deleted detection exceeding percentage of frame threshold',
-                            extra={'meta': {'cat': 'DETECTION_PROCESS', 'percentage_of_frame': percentage_of_frame}})
+                logger.info('Deleted detection exceeding percentage of frame threshold', extra={'meta': {'cat': 'DETECTION_PROCESS', 'percentage_of_frame': percentage_of_frame}})
                 continue
 
-            if width_to_height_ratio > self.width_to_height_ratio or width_to_height_ratio < (
-                    1 / self.width_to_height_ratio):
+            if width_to_height_ratio > self.width_to_height_ratio or width_to_height_ratio < (1 / self.width_to_height_ratio):
                 idxs = np.delete(idxs, last)
-                logger.info('Deleted detection exceeding width to height ratio', extra={
-                    'meta': {'cat': 'DETECTION_PROCESS', 'width_to_height_ratio': width_to_height_ratio}})
+                logger.info('Deleted detection exceeding width to height ratio', extra={'meta': {'cat': 'DETECTION_PROCESS', 'width_to_height_ratio': width_to_height_ratio}})
                 continue
 
             # Remove boxes that their centroids are out of the detection roi.
@@ -297,4 +293,4 @@ class YoloDetector(object):
             # than the provided overlap threshold
             idxs = np.delete(idxs, np.concatenate(([last], np.where(iou > self.iou_threshold)[0])))
 
-        return pick  # the pickled bounding boxes returned
+        return pick
