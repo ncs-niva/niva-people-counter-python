@@ -1,4 +1,5 @@
 # Reads Darknet config and weights and creates Keras model with TF backend.
+# Based on https://github.com/qqwweee/keras-yolo3/blob/master/convert.py as of January 21, 2022.
 
 import argparse
 from collections import defaultdict
@@ -12,7 +13,7 @@ from tensorflow.keras.layers import (Conv2D, Input, ZeroPadding2D, Add,
                                      UpSampling2D, MaxPooling2D, Concatenate, LeakyReLU)
 from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.regularizers import l2
-from tensorflow.keras.utils import plot_model
+from tensorflow.keras.utils import plot_model as plot
 from tensorflow.keras import Model
 
 
@@ -36,8 +37,7 @@ parser.add_argument(
 
 def unique_config_sections(config_file):
     """Convert all config sections to have unique names.
-
-    Adds unique suffixes to config sections for compatibility with configparser.
+    Adds unique suffixes to config sections for compability with configparser.
     """
     section_counters = defaultdict(int)
     output_stream = io.StringIO()
@@ -71,7 +71,7 @@ def main(args):
     weights_file = open(weights_path, 'rb')
     major, minor, revision = np.ndarray(
         shape=(3, ), dtype='int32', buffer=weights_file.read(12))
-    if (major*10+minor) >= 2 and major < 1000 and minor < 1000:
+    if (major*10+minor)>=2 and major<1000 and minor<1000:
         seen = np.ndarray(shape=(1,), dtype='int64', buffer=weights_file.read(8))
     else:
         seen = np.ndarray(shape=(1,), dtype='int32', buffer=weights_file.read(4))
@@ -160,7 +160,7 @@ def main(args):
                         activation, section))
 
             # Create Conv2D layer
-            if stride > 1:
+            if stride>1:
                 # Darknet uses left and top padding instead of 'same' mode
                 prev_layer = ZeroPadding2D(((1,0),(1,0)))(prev_layer)
             conv_layer = (Conv2D(
@@ -233,7 +233,7 @@ def main(args):
                 'Unsupported section header type: {}'.format(section))
 
     # Create and save model.
-    if len(out_index) == 0: out_index.append(len(all_layers)-1)
+    if len(out_index)==0: out_index.append(len(all_layers)-1)
     model = Model(inputs=input_layer, outputs=[all_layers[i] for i in out_index])
     print(model.summary())
     if args.weights_only:
@@ -252,7 +252,7 @@ def main(args):
         print('Warning: {} unused weights'.format(remaining_weights))
 
     if args.plot_model:
-        plot_model(model, to_file='{}.png'.format(output_root), show_shapes=True)
+        plot(model, to_file='{}.png'.format(output_root), show_shapes=True)
         print('Saved model plot to {}.png'.format(output_root))
 
 
