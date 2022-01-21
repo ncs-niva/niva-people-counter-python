@@ -1,4 +1,4 @@
-# NIVA People Counter in Python - Work in Progress
+# NIVA People Counter in Python
 A simple people counter application in Python using line counting
 
 ## Author
