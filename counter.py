@@ -9,8 +9,6 @@ def get_counting_line(line_orientation, frame_width, frame_height, line_position
     :param frame_height: the height of the frame
     :param line_position: the position of the line in the frame (flout number)
     :return: the coordinates list of the area.
-
-    TODO: To generalise this into other orientations to include truncated lines, and perhaps even other geometries.
     """
     line_orientations_list = ['top', 'bottom', 'left', 'right']
     if line_orientation not in line_orientations_list:
@@ -37,8 +35,6 @@ def is_counting_line_passed(point, counting_line, line_orientation):
     :param counting_line: the coordinates list of the area.
     :param line_orientation: the string of the orientation of the line.need to be top, bottom, left, right.
     :return: True if the point passed the line , False if the point didnt pass the line.
-
-    TODO: To update to reflect changes in get_counting_line() above.
     """
     if line_orientation == 'top':
         return point[1] < counting_line[0][1]
