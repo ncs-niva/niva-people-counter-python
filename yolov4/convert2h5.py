@@ -1,5 +1,7 @@
 # Reads Darknet config and weights and creates Keras model with TF backend.
 # Based on https://github.com/qqwweee/keras-yolo3/blob/master/convert.py as of January 21, 2022.
+# Command formula, when at yolov4 subdirectory:
+# "python convert.py cfg/yolov4.cfg weights/yolov4.weights model_data/yolov4.h5"
 
 import argparse
 from collections import defaultdict
