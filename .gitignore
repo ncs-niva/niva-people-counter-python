@@ -3,3 +3,5 @@
 yolov4/weights/*
 yolov4/*.avi
 yolov4/yolov4.weights
+
+yolov4/data/*.h5
